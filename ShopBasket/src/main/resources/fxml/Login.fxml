@@ -27,16 +27,16 @@
         </rowConstraints>
          <children>
             <Label text="Usuario: " GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="2" />
+            <TextField fx:id="userField" GridPane.columnIndex="2" />
             <Label text="Contraseña: " GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <PasswordField GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <PasswordField fx:id="passwdField" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button defaultButton="true" mnemonicParsing="false" text="Login" />
+      <Button fx:id="loginButton" defaultButton="true" mnemonicParsing="false" text="Login" />
       <HBox alignment="CENTER">
          <children>
             <Label text="¿No tienes una cuenta? Crea una cuenta" />
-            <Button mnemonicParsing="false" text="aqui" />
+            <Button fx:id="createAccountButton" mnemonicParsing="false" text="aqui" />
          </children>
       </HBox>
    </children>
