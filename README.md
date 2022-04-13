@@ -1,7 +1,7 @@
 # FCT_Project (ShopBasket)
  Proyecto final ShopBasket
 
-![](ShopBasket/src/main/resources/images/shop-basket.png)
+<img src="ShopBasket/src/main/resources/images/shop-basket-512x512.png" style="zoom:50%;" />
 
 *Icono procedente de https://icons-for-free.com*
 
