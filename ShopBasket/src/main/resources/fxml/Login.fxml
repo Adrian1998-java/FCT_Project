@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox fx:id="view" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" spacing="5.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane>
@@ -32,11 +31,16 @@
             <PasswordField fx:id="passwdField" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button fx:id="loginButton" defaultButton="true" mnemonicParsing="false" text="Login" />
+      <HBox alignment="CENTER" spacing="5.0">
+         <children>
+            <Button fx:id="loginButton" defaultButton="true" mnemonicParsing="false" onAction="#onLogin" text="Login" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancel" text="Cancelar" />
+         </children>
+      </HBox>
       <HBox alignment="CENTER">
          <children>
             <Label text="¿No tienes una cuenta? Crea una cuenta" />
-            <Button fx:id="createAccountButton" mnemonicParsing="false" text="aqui" />
+            <Button fx:id="createAccountButton" mnemonicParsing="false" onAction="#onHere" text="aqui" />
          </children>
       </HBox>
    </children>
