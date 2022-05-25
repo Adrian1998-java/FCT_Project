@@ -34,6 +34,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * Controlador de los items. Trabaja con los items dentro de una lista
+ * 
+ * @author scrag
+ *
+ */
 public class ShopItemController implements Initializable {
 
 	// MODEL
@@ -80,7 +86,7 @@ public class ShopItemController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		nombreListaTextfield.textProperty().bindBidirectional(nombreLista);
-		
+
 		productosList.itemsProperty().bind(productos);
 
 		productoSelectedProperty().bind(productosList.getSelectionModel().selectedItemProperty());
@@ -99,12 +105,15 @@ public class ShopItemController implements Initializable {
 
 	}
 
+	/**
+	 * Listener para cuando cambia un producto
+	 * 
+	 * @param v
+	 * @param ov
+	 * @param nv
+	 */
 	private void onProductChanged(ObservableValue<? extends Producto> v, Producto ov, Producto nv) {
 
-		if (ov != null) {
-		} else {
-
-		}
 		if (nv != null) {
 
 			plusButton.setDisable(false);
@@ -127,6 +136,11 @@ public class ShopItemController implements Initializable {
 		}
 	}
 
+	/**
+	 * Cambia los datos que se han modificado del item actual
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void onCambio(ActionEvent event) {
 		productoSelected.get().setNombreProducto(nombreTextfield.getText());
@@ -136,6 +150,11 @@ public class ShopItemController implements Initializable {
 		productosList.getSelectionModel().selectNext();
 	}
 
+	/**
+	 * Añade un nuevo Item
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void onPlus(ActionEvent event) {
 		Producto prod = new Producto();
@@ -146,6 +165,11 @@ public class ShopItemController implements Initializable {
 		productos.add(prod);
 	}
 
+	/**
+	 * Elimina el item actual
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void onRemove(ActionEvent event) {
 		Alert alert = new Alert(AlertType.WARNING);

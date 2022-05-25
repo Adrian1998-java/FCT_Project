@@ -74,6 +74,9 @@ public class LoginController implements Initializable {
 		loader.load();
 	}
 
+	/**
+	 * Inicializador del controlador
+	 */
 	public void initialize(URL location, ResourceBundle resources) {
 
 		try {
@@ -95,6 +98,12 @@ public class LoginController implements Initializable {
 		return view;
 	}
 
+	/**
+	 * Evento que ocurre al pulsar el botón cancelar
+	 * 
+	 * @param event
+	 * @throws SQLException
+	 */
 	@FXML
 	void onCancel(ActionEvent event) throws SQLException {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -115,6 +124,12 @@ public class LoginController implements Initializable {
 		}
 	}
 
+	/**
+	 * Evento que ocurre al pulsar el botón Aqui
+	 * 
+	 * @param event
+	 * @throws SQLException
+	 */
 	@FXML
 	void onHere(ActionEvent event) throws SQLException {
 		if (conn.isValid(0)) {
@@ -125,6 +140,13 @@ public class LoginController implements Initializable {
 		}
 	}
 
+	/**
+	 * Loguea en la aplicación, muestra una ventana de advertencia si los datos no
+	 * son correctos
+	 * 
+	 * @param event
+	 * @throws SQLException
+	 */
 	@FXML
 	void onLogin(ActionEvent event) throws SQLException {
 
@@ -153,6 +175,11 @@ public class LoginController implements Initializable {
 		}
 	}
 
+	/**
+	 * Clase que recoge los datos del usuario y contraseña introducidos
+	 * 
+	 * @throws SQLException
+	 */
 	public void PassDataToList() throws SQLException {
 		PreparedStatement psMySQL = conn.prepareStatement("SELECT * FROM usuarios WHERE usuario=? AND contraseña=?;");
 

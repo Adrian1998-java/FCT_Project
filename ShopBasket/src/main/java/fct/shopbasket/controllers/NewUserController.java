@@ -30,7 +30,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+/**
+ * Controlador de la clase NewUser. Crea un nuevo usuario en la BD
+ * @author scrag
+ *
+ */
 public class NewUserController implements Initializable {
 
 	// MODEL
@@ -73,7 +77,12 @@ public class NewUserController implements Initializable {
 	public BorderPane getView() {
 		return view;
 	}
-
+/**
+ * Verifica que ciertas condiciones se han cumplido
+ * @param v
+ * @param ov
+ * @param nv
+ */
 	private void onVerifyChanged(ObservableValue<? extends String> v, String ov, String nv) {
 
 		if (!(nv.equals(verifyPasswrdTextfield.getText())) || nv.isEmpty()) {
@@ -83,7 +92,11 @@ public class NewUserController implements Initializable {
 			crearUserButton.setDisable(false);
 		}
 	}
-
+/**
+ * Crea un nuevo usuario si no existe
+ * @param event
+ * @throws SQLException
+ */
 	@FXML
 	void onCrearUser(ActionEvent event) throws SQLException {
 

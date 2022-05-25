@@ -39,7 +39,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+/**
+ * Ckase controladora de la ventana principal, mostrando la lista de Listas
+ * @author scrag
+ *
+ */
 public class ListsOfListController implements Initializable {
 
 	// MODEL
@@ -75,7 +79,10 @@ public class ListsOfListController implements Initializable {
 
 	@FXML
 	private BorderPane view;
-
+/**
+ * 
+ * @throws IOException
+ */
 	public ListsOfListController() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ListOfLists.fxml"));
 		loader.setController(this);
@@ -83,7 +90,7 @@ public class ListsOfListController implements Initializable {
 	}
 
 	/**
-	 * 
+	 * Inicializador de la clase
 	 */
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -97,7 +104,12 @@ public class ListsOfListController implements Initializable {
 		
 	}
 
-
+/**
+ * Listener que escucha el cambio cuando se selecciona una lista nueva/diferente
+ * @param v
+ * @param ov
+ * @param nv
+ */
 	private void onItemChanged(ObservableValue<? extends Lista> v, Lista ov, Lista nv) {
 		if (ov != null) {
 			view.setCenter(noItemButton);
@@ -132,7 +144,10 @@ public class ListsOfListController implements Initializable {
 	public static void setConn(Connection conn) {
 		ListsOfListController.conn = conn;
 	}
-
+/**
+ * Añade una nueva lista
+ * @param event
+ */
 	@FXML
 	void OnAddButton(ActionEvent event) {
 		Producto prod = new Producto();
@@ -146,7 +161,10 @@ public class ListsOfListController implements Initializable {
 
 		userList.add(list);
 	}
-
+/**
+ * Elimina la lista que sea el foco de la lista
+ * @param event
+ */
 	@FXML
 	void OnRemoveButton(ActionEvent event) {
 		Alert alert = new Alert(AlertType.WARNING);
@@ -163,7 +181,11 @@ public class ListsOfListController implements Initializable {
 		}
 	}
 	
-
+/**
+ * Guarda los datos del usuario en la nube, luego de verificar que hay conexion
+ * @param event
+ * @throws SQLException
+ */
     @FXML
     void onGuardarDatos(ActionEvent event) throws SQLException {
     	
@@ -189,6 +211,14 @@ public class ListsOfListController implements Initializable {
     			alert.showAndWait();
     		}
 
+    	}
+    	else {
+    		Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("ERROR");
+			alert.setHeaderText(null);
+			alert.setContentText("No se han guardado tus datos debido a una desconexión");
+
+			alert.showAndWait();
     	}
     }
 
