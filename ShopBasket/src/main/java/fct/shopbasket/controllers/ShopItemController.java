@@ -96,7 +96,7 @@ public class ShopItemController implements Initializable {
 		unidadCombo.getItems().setAll(Unidades.values());
 		unidadCombo.getSelectionModel().selectFirst();
 
-		plusButton.setDisable(true);
+//		plusButton.setDisable(true);
 		removeButton.setDisable(true);
 		nombreTextfield.setDisable(true);
 		cantidadTextfield.setDisable(true);
@@ -126,8 +126,9 @@ public class ShopItemController implements Initializable {
 			nombreTextfield.setText(nv.getNombreProducto());
 			cantidadTextfield.setText(String.valueOf(nv.getCantidad()));
 			unidadCombo.setValue(Unidades.valueOf(nv.getUnidad()));
+			
 		} else {
-			plusButton.setDisable(true);
+//			plusButton.setDisable(true);
 			removeButton.setDisable(true);
 			nombreTextfield.setDisable(true);
 			cantidadTextfield.setDisable(true);
@@ -163,6 +164,8 @@ public class ShopItemController implements Initializable {
 		prod.setCantidad(0);
 
 		productos.add(prod);
+		
+		productosList.getSelectionModel().selectLast();
 	}
 
 	/**

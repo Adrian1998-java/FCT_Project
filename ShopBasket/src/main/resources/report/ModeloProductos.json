@@ -1,0 +1,23 @@
+{"productos":[
+  {
+	"nombreProducto":"Almendras",
+	"cantidad":10,
+	"unidad":"mL"
+  },
+   {
+	"nombreProducto":"Camellos",
+	"cantidad":10,
+	"unidad":"mL"
+  },
+   {
+	"nombreProducto":"Picos",
+	"cantidad":10,
+	"unidad":"mL"
+  },
+   {
+	"nombreProducto":"Gofio",
+	"cantidad":10,
+	"unidad":"mL"
+  }
+  
+  ]}

@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 
 import fct.shopbasket.utils.Lista;
 import fct.shopbasket.utils.Producto;
-import fct.shopbasket.utils.UseGson;
 import fct.shopbasket.utils.User;
 /**
  * Clase iniciadora del programa

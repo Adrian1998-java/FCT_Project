@@ -1,0 +1,23 @@
+{"productos":[
+  {
+	"nombreProducto":"Almendras",
+	"cantidad":10,
+	"unidad":"mL"
+  },
+   {
+	"nombreProducto":"Almendras",
+	"cantidad":10,
+	"unidad":"mL"
+  },
+   {
+	"nombreProducto":"Almendras",
+	"cantidad":10,
+	"unidad":"mL"
+  },
+   {
+	"nombreProducto":"Almendras",
+	"cantidad":10,
+	"unidad":"mL"
+  }
+  
+  ]}

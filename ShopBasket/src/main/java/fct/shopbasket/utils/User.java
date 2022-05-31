@@ -8,7 +8,7 @@ public class User {
 	private ArrayList<Lista> ListasObject = new ArrayList<Lista>();
 
 	// GETTERS
-	public List<Lista> getListasObject() {
+	public final List<Lista> getListasObject() {
 		return ListasObject;
 	}
 

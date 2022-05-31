@@ -14,20 +14,30 @@ import com.mysql.cj.protocol.Resultset;
 
 import fct.shopbasket.app.App;
 import fct.shopbasket.conn.MsqlConnection;
+import fct.shopbasket.utils.Lista;
+import fct.shopbasket.utils.Producto;
 import fct.shopbasket.utils.User;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Window;
+import javafx.util.Pair;
 
 /**
  * Clase controladora del la ventana del login
@@ -42,7 +52,6 @@ public class LoginController implements Initializable {
 	static Connection conn;
 
 	ListsOfListController listController = new ListsOfListController();
-	NewUserController newUserController = new NewUserController();
 	User user;
 
 	@FXML
@@ -132,12 +141,116 @@ public class LoginController implements Initializable {
 	 */
 	@FXML
 	void onHere(ActionEvent event) throws SQLException {
-		if (conn.isValid(0)) {
-			newUserController.setConn(conn);
-			newUserController.showApp();
-		} else {
+//		if (conn.isValid(0)) {
+//			newUserController.setConn(conn);
+//			newUserController.showApp();
+//			App.getStage().initOwner(App.getStage());
+//		} 
+		
+		// Create the custom dialog.
+		Dialog<Pair<String, String>> dialog = new Dialog<>();
+		dialog.setTitle("New User");
+		dialog.setHeaderText("Crea un nuevo usuario");
 
-		}
+		// Set the icon (must be included in the project).
+//		dialog.setGraphic(new ImageView(this.getClass().getResource("login.png").toString()));
+
+		// Set the button types.
+		ButtonType loginButtonType = new ButtonType("Crear", ButtonData.OK_DONE);
+		dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+		// Create the username and password labels and fields.
+		GridPane grid = new GridPane();
+		grid.setHgap(10);
+		grid.setVgap(10);
+		grid.setPadding(new Insets(20, 150, 10, 10));
+
+		TextField username = new TextField();
+		username.setPromptText("Username");
+		PasswordField password = new PasswordField();
+		password.setPromptText("Password");
+
+		grid.add(new Label("Username:"), 0, 0);
+		grid.add(username, 1, 0);
+		grid.add(new Label("Password:"), 0, 1);
+		grid.add(password, 1, 1);
+
+		// Enable/Disable login button depending on whether a username was entered.
+		Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+		loginButton.setDisable(true);
+
+		// Do some validation (using the Java 8 lambda syntax).
+		username.textProperty().addListener((observable, oldValue, newValue) -> {
+		    loginButton.setDisable(newValue.trim().isEmpty());
+		});
+
+		dialog.getDialogPane().setContent(grid);
+
+		// Request focus on the username field by default.
+		Platform.runLater(() -> username.requestFocus());
+
+		// Convert the result to a username-password-pair when the login button is clicked.
+		dialog.setResultConverter(dialogButton -> {
+		    if (dialogButton == loginButtonType) {
+		        return new Pair<>(username.getText(), password.getText());
+		    }
+		    return null;
+		});
+
+		Optional<Pair<String, String>> result = dialog.showAndWait();
+
+		result.ifPresent(usernamePassword -> {
+			try {
+				int ultimaEntrada = 0;
+				PreparedStatement visualiza = conn.prepareStatement("SELECT Id FROM `usuarios` ORDER BY id ASC");
+				
+				ResultSet resultado = visualiza.executeQuery();
+				
+				while(resultado.next()) {
+					ultimaEntrada = resultado.getInt(1);
+				}
+				PreparedStatement inserta = conn.prepareStatement("INSERT INTO usuarios VALUES (?,?,?,?)");
+				
+				inserta.setInt(1, ultimaEntrada+1);
+				inserta.setString(2, username.getText());
+				inserta.setString(3,password.getText());
+				
+				Producto prod = new Producto();
+				prod.setNombreProducto("Almendras");
+				prod.setCantidad(10);
+				
+				Lista list = new Lista();
+				list.setNombreLista("Mercadona");
+				list.getProductos().add(prod);
+				
+				User user = new User();
+				user.getListasObject().add(list);
+				String json = new Gson().toJson(user);
+				
+				inserta.setString(4, json);
+				
+				if (inserta.executeUpdate() == 1) {
+					
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("Insercción con éxito");
+					alert.setHeaderText("¡Insercción con éxito!");
+					alert.setContentText("Se ha insertado el usuario correctamente \n No olvides tus datos");
+					
+					alert.showAndWait();
+				} else {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("ERROR");
+					alert.setContentText("Ha ocurrido un error inesperado. Intentelo más tarde");
+					
+					alert.showAndWait();
+				}
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			
+		});
 	}
 
 	/**

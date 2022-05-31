@@ -8,10 +8,13 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="view" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <BorderPane BorderPane.alignment="CENTER">
          <center>
@@ -43,13 +46,49 @@
                   </Button>
                </children>
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets bottom="5.0" top="5.0" />
                </padding>
             </HBox>
          </bottom>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
+         <top>
+            <HBox alignment="CENTER_LEFT" spacing="5.0" BorderPane.alignment="CENTER">
+               <children>
+                <Button fx:id="guardarDatosButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onGuardarDatos" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/save.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="pdfButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onPdf" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/archivo-pdf.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="infoButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onInfo" HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/info.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" />
+               </padding>
+            </HBox>
+         </top>
       </BorderPane>
    </left>
    <center>
@@ -65,19 +104,35 @@
       </VBox>
    </center>
    <top>
-      <ToolBar BorderPane.alignment="CENTER">
+      <ToolBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="49.0" prefWidth="518.0" BorderPane.alignment="CENTER">
         <items>
-          <Button fx:id="guardarDatosButton" mnemonicParsing="false" onAction="#onGuardarDatos">
-               <graphic>
-                  <ImageView>
+            <GridPane hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" vgap="5.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" />
+                <ColumnConstraints hgrow="NEVER" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/save-32x32.png" />
+                        <Image url="@../images/user.png" />
                      </image>
                   </ImageView>
-               </graphic>
-            </Button>
-            <Label fx:id="usernameLabel" text="Usuario: userName" />
+                  <Label fx:id="usernameLabel" text="Usuario: userName" GridPane.columnIndex="1" GridPane.hgrow="NEVER" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </GridPane>
         </items>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </ToolBar>
    </top>
 </BorderPane>

@@ -22,6 +22,12 @@
 			<artifactId>javafx-fxml</artifactId>
 			<version>15.0.1</version>
 		</dependency>
+		<!--JasperReports dependency -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.19.1</version>
+		</dependency>
 		<!--Gson dependency -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -35,5 +41,34 @@
 			<version>8.0.26</version>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>io.github.fvarrui</groupId>
+				<artifactId>javapackager</artifactId>
+				<version>1.6.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>package</goal>
+						</goals>
+						<configuration>
+							<!-- mandatory -->
+							<mainClass>fct.shopbasket.Main</mainClass>
+							<!-- optional -->
+							<bundleJre>true</bundleJre>
+							<generateInstaller>true</generateInstaller>
+							<administratorRequired>false</administratorRequired>
+							<platform>windows</platform>
+							<additionalResources>
+							</additionalResources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

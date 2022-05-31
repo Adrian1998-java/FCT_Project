@@ -18,8 +18,9 @@ public class App extends Application {
 		
 		stage = primaryStage;
 		
-		primaryStage.setScene(new Scene(loginController.getView(), 600, 400));
+		primaryStage.setScene(new Scene(loginController.getView(), 400, 300));
 		primaryStage.setTitle("Shop Basket");
+		primaryStage.setResizable(false);
 		primaryStage.show();
 
 	}
