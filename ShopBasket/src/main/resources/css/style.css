@@ -1,8 +1,47 @@
-
-#view{
-	color: #61F539;
+/*GENERAL*/
+.root{
+	-fx-background-color: #C9EDC5;
+	-fx-font-family: sans-serif;
+	-fx-hgap: 1px;
+	-fx-vgap: 1px;
 }
 
 .button{
-	color: #61F539;
+	-fx-background-color: #82C96F;
+}
+.button: hover{
+	-fx-background-color: #7DC26B;
+}
+.button: pressed{
+	-fx-background-color: #68A158;
+}
+
+.tool-bar{
+	-fx-background-color: #FFFE8E;
+}
+
+.list-view{
+	-fx-background-color: #44AC43;
+}
+
+.combo-box .list-cell{
+	-fx-background-color: #D1CA82;
+		-fx-border-style: solid #44AC43;
+}
+
+.text-field{
+	-fx-background-color: transparent;
+	-fx-border-color: #82C96F;
+	-fx-border-radius: 5px;
+}
+
+/*CEARTIN ELEMENTS*/
+#plusButton, #removeButton{
+	-fx-background-color: #93C67E;
+}
+#plusButton: hover, #removeButton: hover{
+	-fx-background-color: #8BBA77;
+}
+#plusButton: pressed, #removeButton: pressed{
+	-fx-background-color: #78A167;
 }

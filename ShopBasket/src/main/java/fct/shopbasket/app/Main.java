@@ -1,10 +1,6 @@
 package fct.shopbasket.app;
 
 import com.google.gson.Gson;
-
-import fct.shopbasket.utils.Lista;
-import fct.shopbasket.utils.Producto;
-import fct.shopbasket.utils.User;
 /**
  * Clase iniciadora del programa
  * @author scrag

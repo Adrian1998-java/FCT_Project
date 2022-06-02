@@ -8,7 +8,7 @@
 		<maven.compiler.target>11</maven.compiler.target>
 		<maven.compiler.source>11</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<exec.mainClass>fct.shopbasket.Main</exec.mainClass>
+		<exec.mainClass>fct.shopbasket.app.Main</exec.mainClass>
 	</properties>
 
 	<dependencies>
@@ -47,7 +47,7 @@
 			<plugin>
 				<groupId>io.github.fvarrui</groupId>
 				<artifactId>javapackager</artifactId>
-				<version>1.6.3</version>
+				<version>1.6.6</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -55,20 +55,18 @@
 							<goal>package</goal>
 						</goals>
 						<configuration>
-							<!-- mandatory -->
-							<mainClass>fct.shopbasket.Main</mainClass>
-							<!-- optional -->
+							<mainClass>fct.shopbasket.app.Main</mainClass>
 							<bundleJre>true</bundleJre>
-							<generateInstaller>true</generateInstaller>
-							<administratorRequired>false</administratorRequired>
-							<platform>windows</platform>
-							<additionalResources>
-							</additionalResources>
+							<customizedJre>false</customizedJre>
+							<winConfig>
+								<icoFile>icono.ico</icoFile>
+								<generateMsi>true</generateMsi>
+							</winConfig>
+							<createZipball>true</createZipball>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

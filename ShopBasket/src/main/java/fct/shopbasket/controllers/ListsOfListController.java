@@ -8,13 +8,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import org.eclipse.jdt.internal.compiler.ast.ThisReference;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -34,10 +31,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -88,9 +85,6 @@ public class ListsOfListController implements Initializable {
 	private Button removeButton;
 
 	@FXML
-	private Button infoButton;
-
-	@FXML
 	private Button pdfButton;
 
 	@FXML
@@ -124,6 +118,8 @@ public class ListsOfListController implements Initializable {
 		selectedUserProperty().bind(listsListView.getSelectionModel().selectedItemProperty());
 
 		selectedUser.addListener((v, ov, nv) -> onItemChanged(v, ov, nv));
+		
+		pdfButton.setDisable(true);
 
 	}
 
@@ -142,6 +138,7 @@ public class ListsOfListController implements Initializable {
 			ov.getProductos().clear();
 			ov.getProductos().addAll(itemController.getProductos());
 			ov.setNombreLista(itemController.getNombreLista());
+			pdfButton.setDisable(true);
 		}
 		if (nv != null) {
 
@@ -149,6 +146,7 @@ public class ListsOfListController implements Initializable {
 			itemController.productosProperty().addAll(nv.getProductos());
 			itemController.getNombreListaTextfield().setText(nv.getNombreLista());
 			view.setCenter(itemController.getView());
+			pdfButton.setDisable(false);
 
 		}
 	}
@@ -252,16 +250,6 @@ public class ListsOfListController implements Initializable {
 	}
 
 	/**
-	 * Muestra una pequeña ventana con información básica sobre la APP
-	 * 
-	 * @param event
-	 */
-	@FXML
-	void onInfo(ActionEvent event) {
-
-	}
-
-	/**
 	 * Exporta la información actual en un pdf
 	 * 
 	 * @param event
@@ -333,6 +321,7 @@ public class ListsOfListController implements Initializable {
 		listStage.setTitle("ShopBasket");
 		listStage.initModality(Modality.WINDOW_MODAL);
 		listStage.initOwner(App.getStage());
+		listStage.getIcons().add(new Image("/images/shop-basket-32x32.png"));
 		usernameLabel.setText("Usuario: " + usuarioName);
 
 		listStage.showAndWait();

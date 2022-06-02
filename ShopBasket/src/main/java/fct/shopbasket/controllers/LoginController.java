@@ -10,8 +10,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
-import com.mysql.cj.protocol.Resultset;
-
 import fct.shopbasket.app.App;
 import fct.shopbasket.conn.MsqlConnection;
 import fct.shopbasket.utils.Lista;
@@ -33,10 +31,8 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Window;
 import javafx.util.Pair;
 
 /**
@@ -181,7 +177,7 @@ public class LoginController implements Initializable {
 
 		// Do some validation (using the Java 8 lambda syntax).
 		username.textProperty().addListener((observable, oldValue, newValue) -> {
-		    loginButton.setDisable(newValue.trim().isEmpty());
+		    loginButton.setDisable(newValue.trim().isEmpty() && !password.getText().trim().isEmpty());
 		});
 
 		dialog.getDialogPane().setContent(grid);
@@ -263,28 +259,40 @@ public class LoginController implements Initializable {
 	@FXML
 	void onLogin(ActionEvent event) throws SQLException {
 
-		PreparedStatement psMySQL = conn
-				.prepareStatement("SELECT COUNT(*) FROM usuarios WHERE usuario=? AND contraseña=?;");
-
-		psMySQL.setString(1, userField.getText());
-		psMySQL.setString(2, passwdField.getText());
-
-		ResultSet result = psMySQL.executeQuery();
-
-		if (result.next()) {
-			if (result.getByte(1) == 1) {
-				System.out.println(result.getByte(1));
-				App.getStage().close();
-				PassDataToList();
-				listController.showApp();
-			} else {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("ERROR");
-				alert.setHeaderText("Error al introducir los datos");
-				alert.setContentText("Alguno de los datos introducidos son incorrectos.");
-
-				alert.showAndWait();
+		if(conn != null) {
+			
+			PreparedStatement psMySQL = conn
+					.prepareStatement("SELECT COUNT(*) FROM usuarios WHERE usuario=? AND contraseña=?;");
+			
+			psMySQL.setString(1, userField.getText());
+			psMySQL.setString(2, passwdField.getText());
+			
+			ResultSet result = psMySQL.executeQuery();
+			
+			if (result.next()) {
+				if (result.getByte(1) == 1) {
+					System.out.println(result.getByte(1));
+					App.getStage().close();
+					PassDataToList();
+					listController.showApp();
+				} else {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("ERROR");
+					alert.setHeaderText("Error al introducir los datos");
+					alert.setContentText("Alguno de los datos introducidos son incorrectos.");
+					
+					alert.showAndWait();
+				}
 			}
+		}
+		else
+		{
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setHeaderText("Conexión fallida");
+			alert.setContentText("El servicio no está activo en estos momentos");
+			
+			alert.showAndWait();
 		}
 	}
 
