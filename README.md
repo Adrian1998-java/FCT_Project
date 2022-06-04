@@ -13,7 +13,7 @@ ShopBasket es una aplicación que permite crear listas de la compra con producto
 
 ## Interfáz de la Aplicación
 
-
+<img src=" ShopBasket/src/main/resources/images/Interfaz.png"/>
 
 ## Tecnologías usadas
 
