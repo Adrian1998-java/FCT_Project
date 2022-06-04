@@ -11,6 +11,14 @@ ShopBasket es una aplicación que permite crear listas de la compra con producto
 
 
 
-## Proyecto Java
+## Interfáz de la Aplicación
 
-*En proceso...*
+
+
+## Tecnologías usadas
+
+- **[Java](https://www.java.com/es/)**, lenguaje de programación principal usado para el desarrollo del proyecto.
+- **[JavaFX FXML](https://mvnrepository.com/artifact/org.openjfx/javafx-fxml)**, para el diseño de la aplicación
+- **[Java Packager](https://github.com/fvarrui/JavaPackager)**, para la creación del instalador.
+- **[MySQL](https://www.mysql.com)**, para la base de datos donde se asienta la información.
+- **[JavaPackager](https://github.com/fvarrui/JavaPackager)**, para generar los archivos PDFs

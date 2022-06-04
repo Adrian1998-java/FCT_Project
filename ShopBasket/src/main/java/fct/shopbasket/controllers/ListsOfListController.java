@@ -220,7 +220,7 @@ public class ListsOfListController implements Initializable {
 			System.out.println("valid");
 
 			PreparedStatement psMySQL = conn
-					.prepareStatement("UPDATE usuarios SET datosuser=? WHERE usuario=? AND contraseña=?;");
+					.prepareStatement("UPDATE usuarios SET datosuser=? WHERE usuario=? AND contrasenia=?;");
 
 			User user = new User();
 			user.getListasObject().addAll(userList);
@@ -304,10 +304,10 @@ public class ListsOfListController implements Initializable {
 
 		// Exporta el informe en PDF
 		JasperExportManager.exportReportToPdfFile(print,
-				"pdf/" + getSelectedUser().getNombreLista() + "_" + getUsuarioName() + ".pdf");
+				System.getProperty("user.home") + "/Documents/"+ getSelectedUser().getNombreLista() + "_" + getUsuarioName() + ".pdf");
 
 		// Muestra el informe con el programa predetermindado del sistema
-		Desktop.getDesktop().open(new File("pdf/" + getSelectedUser().getNombreLista() + "_" + getUsuarioName() + ".pdf"));
+		Desktop.getDesktop().open(new File(System.getProperty("user.home") + "/Documents/" + getSelectedUser().getNombreLista() + "_" + getUsuarioName() + ".pdf"));
 
 	}
 

@@ -94,9 +94,6 @@ public class LoginController implements Initializable {
 			e.printStackTrace();
 		}
 
-		userField.setText("Adrian");
-		passwdField.setText("Adriancito");
-
 	}
 
 	public VBox getView() {
@@ -142,7 +139,7 @@ public class LoginController implements Initializable {
 //			newUserController.showApp();
 //			App.getStage().initOwner(App.getStage());
 //		} 
-		
+
 		// Create the custom dialog.
 		Dialog<Pair<String, String>> dialog = new Dialog<>();
 		dialog.setTitle("New User");
@@ -177,7 +174,7 @@ public class LoginController implements Initializable {
 
 		// Do some validation (using the Java 8 lambda syntax).
 		username.textProperty().addListener((observable, oldValue, newValue) -> {
-		    loginButton.setDisable(newValue.trim().isEmpty() && !password.getText().trim().isEmpty());
+			loginButton.setDisable(newValue.trim().isEmpty() && !password.getText().trim().isEmpty());
 		});
 
 		dialog.getDialogPane().setContent(grid);
@@ -185,12 +182,13 @@ public class LoginController implements Initializable {
 		// Request focus on the username field by default.
 		Platform.runLater(() -> username.requestFocus());
 
-		// Convert the result to a username-password-pair when the login button is clicked.
+		// Convert the result to a username-password-pair when the login button is
+		// clicked.
 		dialog.setResultConverter(dialogButton -> {
-		    if (dialogButton == loginButtonType) {
-		        return new Pair<>(username.getText(), password.getText());
-		    }
-		    return null;
+			if (dialogButton == loginButtonType) {
+				return new Pair<>(username.getText(), password.getText());
+			}
+			return null;
 		});
 
 		Optional<Pair<String, String>> result = dialog.showAndWait();
@@ -199,53 +197,52 @@ public class LoginController implements Initializable {
 			try {
 				int ultimaEntrada = 0;
 				PreparedStatement visualiza = conn.prepareStatement("SELECT Id FROM `usuarios` ORDER BY id ASC");
-				
+
 				ResultSet resultado = visualiza.executeQuery();
-				
-				while(resultado.next()) {
+
+				while (resultado.next()) {
 					ultimaEntrada = resultado.getInt(1);
 				}
 				PreparedStatement inserta = conn.prepareStatement("INSERT INTO usuarios VALUES (?,?,?,?)");
-				
-				inserta.setInt(1, ultimaEntrada+1);
+
+				inserta.setInt(1, ultimaEntrada + 1);
 				inserta.setString(2, username.getText());
-				inserta.setString(3,password.getText());
-				
+				inserta.setString(3, password.getText());
+
 				Producto prod = new Producto();
 				prod.setNombreProducto("Almendras");
 				prod.setCantidad(10);
-				
+
 				Lista list = new Lista();
 				list.setNombreLista("Mercadona");
 				list.getProductos().add(prod);
-				
+
 				User user = new User();
 				user.getListasObject().add(list);
 				String json = new Gson().toJson(user);
-				
+
 				inserta.setString(4, json);
-				
+
 				if (inserta.executeUpdate() == 1) {
-					
+
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Insercción con éxito");
 					alert.setHeaderText("¡Insercción con éxito!");
 					alert.setContentText("Se ha insertado el usuario correctamente \n No olvides tus datos");
-					
+
 					alert.showAndWait();
 				} else {
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Error");
 					alert.setHeaderText("ERROR");
 					alert.setContentText("Ha ocurrido un error inesperado. Intentelo más tarde");
-					
+
 					alert.showAndWait();
 				}
-			}
-			catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 		});
 	}
 
@@ -259,16 +256,16 @@ public class LoginController implements Initializable {
 	@FXML
 	void onLogin(ActionEvent event) throws SQLException {
 
-		if(conn != null) {
-			
+		if (conn != null) {
+
 			PreparedStatement psMySQL = conn
-					.prepareStatement("SELECT COUNT(*) FROM usuarios WHERE usuario=? AND contraseña=?;");
-			
+					.prepareStatement("SELECT COUNT(*) FROM usuarios WHERE usuario=? AND contrasenia=?;");
+
 			psMySQL.setString(1, userField.getText());
 			psMySQL.setString(2, passwdField.getText());
-			
+
 			ResultSet result = psMySQL.executeQuery();
-			
+
 			if (result.next()) {
 				if (result.getByte(1) == 1) {
 					System.out.println(result.getByte(1));
@@ -280,18 +277,16 @@ public class LoginController implements Initializable {
 					alert.setTitle("ERROR");
 					alert.setHeaderText("Error al introducir los datos");
 					alert.setContentText("Alguno de los datos introducidos son incorrectos.");
-					
+
 					alert.showAndWait();
 				}
 			}
-		}
-		else
-		{
+		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("ERROR");
 			alert.setHeaderText("Conexión fallida");
 			alert.setContentText("El servicio no está activo en estos momentos");
-			
+
 			alert.showAndWait();
 		}
 	}
@@ -302,7 +297,7 @@ public class LoginController implements Initializable {
 	 * @throws SQLException
 	 */
 	public void PassDataToList() throws SQLException {
-		PreparedStatement psMySQL = conn.prepareStatement("SELECT * FROM usuarios WHERE usuario=? AND contraseña=?;");
+		PreparedStatement psMySQL = conn.prepareStatement("SELECT * FROM usuarios WHERE usuario=? AND contrasenia=?;");
 
 		psMySQL.setString(1, userField.getText());
 		psMySQL.setString(2, passwdField.getText());
